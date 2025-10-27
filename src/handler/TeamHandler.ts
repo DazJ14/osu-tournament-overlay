@@ -29,7 +29,7 @@ export default class TeamHandler {
 		},
 	];
 
-	constructor(engine: ZEngine, test?: Test) {
+	constructor(engine: ZEngine, _?: Test) {
 		for (const value of TeamHandler.map) {
 			const element: HTMLElement | null = document.querySelector(
 				`#${value.id}`,

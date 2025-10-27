@@ -8,8 +8,8 @@ export enum PickAction {
 }
 
 export default class BeatmapHandler {
-	redPickedMaps: Set<Number> = new Set();
-	bluePickedMaps: Set<Number> = new Set();
+	redPickedMaps: Set<number> = new Set();
+	bluePickedMaps: Set<number> = new Set();
 	currentMapId: number = -1;
 
 	static map = [
@@ -63,7 +63,7 @@ export default class BeatmapHandler {
 		},
 	];
 
-	constructor(engine: ZEngine, test?: Test) {
+	constructor(engine: ZEngine, _?: Test) {
 		for (const value of BeatmapHandler.map) {
 			const element: HTMLElement | null = document.querySelector(
 				`#${value.id}`,
@@ -130,7 +130,7 @@ export default class BeatmapHandler {
 	}
 
 	private updatePicker() {
-		const element: HTMLElement | null = document.querySelector(`#picker`,);
+		const element: HTMLElement | null = document.querySelector(`#picker`);
 		if (element === null) return;
 
 		const hasRed = this.redPickedMaps.has(this.currentMapId);
