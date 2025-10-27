@@ -40,7 +40,7 @@ Just as a head-up, since this overlay is completely reworked on Vite, you cannot
 - Install [Bun](https://bun.sh/docs/installation)
 - Clone the repository and start developing
 ```
-git clone https://github.com/vncommunityleague/vcl-overlays.git
+git clone https://github.com/vncommunityleague/vcl-overlay.git
 bun install
 bun dev
 ```
