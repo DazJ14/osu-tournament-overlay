@@ -257,10 +257,10 @@ export default class ScoreHandler {
 		} / 2)`;
 
 		const isLeftLeading =
-			difference > 0 !==
+			difference > 0 ===
 			(this.scoringCondition !== ScoringCondition.MISS_COUNT);
 		const isRightLeading =
-			difference < 0 !==
+			difference < 0 ===
 			(this.scoringCondition !== ScoringCondition.MISS_COUNT);
 
 		this.barLeftElement.style.width = isLeftLeading
