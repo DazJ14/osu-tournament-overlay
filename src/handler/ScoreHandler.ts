@@ -148,6 +148,7 @@ export default class ScoreHandler {
 				const accuracyRight = this.clients
 					.filter((client) => client.team === "right")
 					.reduce((acc, curr, _, arr) => acc + curr.accuracy / arr.length, 0);
+				
 				this.updateScoring(accuracyLeft, accuracyRight);
 				break;
 			}

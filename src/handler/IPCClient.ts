@@ -22,7 +22,7 @@ export default class IPCClient {
 	mods = 0;
 
 	static VALUE_MAP = [
-		["spectating.team", "team"],
+		["team", "team"],
 		["gameplay.name", "name"],
 		["gameplay.score", "score"],
 		["gameplay.accuracy", "accuracy"],
