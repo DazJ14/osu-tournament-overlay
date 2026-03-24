@@ -1,4 +1,3 @@
-// src/composables/useDebug.ts
 import { reactive } from "vue";
 
 // Estado global para el modo debug

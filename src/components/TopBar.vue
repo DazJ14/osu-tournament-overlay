@@ -1,23 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useTeam } from '../composables/useTeam';
-import { useDebug } from '../composables/useDebug';
+import { useGameState } from '../composables/useGameState';
 
 const { teamState } = useTeam();
-const { debugState } = useDebug();
+const { gameState } = useGameState();
 
-// Calculamos la cantidad máxima de estrellas (Best Of + 1 / 2)
+// Calculo de estrellas/puntos máximos
 const maxStars = computed(() => Math.floor((teamState.bestOf + 1) / 2));
 
-// Computada para saber si mostramos las estrellas basándonos en el panel de Debug
-const showStars = computed(() => {
-  if (debugState.testMode) {
-    return debugState.starsVisible;
-  }
-  // TODO: Más adelante, si no estamos en testMode, aquí leeremos el estado real 
-  // del GameStateHandler. Por ahora lo dejamos en true por defecto.
-  return true;
-});
+const showStars = computed(() => gameState.starsVisible);
 </script>
 
 <template>

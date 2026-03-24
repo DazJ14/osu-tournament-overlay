@@ -22,7 +22,7 @@ export function useChat() {
   if (!isInitialized) {
     engine.register("tourney.manager.chat.length", (_, __, data) => {
       if (debugState.testMode) return;
-      chatState.messages = data.tourney.manager.chat;
+      chatState.messages = [...data.tourney.manager.chat];
     });
     isInitialized = true;
   }

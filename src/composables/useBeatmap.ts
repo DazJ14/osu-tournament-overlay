@@ -20,7 +20,6 @@ const beatmapState = reactive({
   length: 0,
   backgroundUrl: "",
   currentMapId: -1,
-  // Vue 3 soporta Sets dentro de reactive() sin problemas
   redPickedMaps: new Set<number>(),
   bluePickedMaps: new Set<number>()
 });
@@ -52,7 +51,6 @@ export function useBeatmap() {
     isInitialized = true;
   }
 
-  // Esta función será llamada por el Mappool más adelante
   const updatePickedMaps = (mapId: number, action: PickAction) => {
     switch (action) {
       case PickAction.REMOVE_PICK:

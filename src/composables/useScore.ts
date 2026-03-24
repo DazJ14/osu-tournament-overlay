@@ -54,7 +54,7 @@ export function useScore() {
     return 0;
   }
 
-  // Permite inyectar puntajes manualmente para el testMode
+  // Para debug: permite establecer manualmente los scores desde el DebugPanel
   function setManualScores(left: number, right: number) {
     const difference = left - right;
     scoreState.left = left;
@@ -66,7 +66,7 @@ export function useScore() {
   }
 
   function updateScores(data: any) {
-    if (debugState.testMode) return; // Si estamos en testMode, ignoramos el WebSocket real
+    if (debugState.testMode) return;
 
     let scoringLeft = 0;
     let scoringRight = 0;

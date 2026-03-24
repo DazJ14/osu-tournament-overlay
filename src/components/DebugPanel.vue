@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useDebug } from '../composables/useDebug';
+import { useMappool } from '../composables/useMappool';
 
 // Extraemos el estado global
 const { debugState } = useDebug();
+const { toggleMappool } = useMappool();
 </script>
 
 <template>
@@ -59,5 +61,12 @@ const { debugState } = useDebug();
       </div>
 
     </div>
+    <div class="flex flex-col gap-5 p-5 rounded-xl border-l border-surface-0 bg-base text-text">
+  <div class="font-medium">Control</div>
+  <button @click="toggleMappool" class="p-5 rounded-xl bg-mantle border border-surface-0 cursor-pointer hover:bg-surface-0 transition-colors">
+    Toggle Mappool
+  </button>
+
+  </div>
   </div>
 </template>

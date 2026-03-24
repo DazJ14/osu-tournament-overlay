@@ -2,12 +2,12 @@
 import { ref, onMounted, watch, computed } from 'vue';
 import { CountUp, type CountUpOptions } from 'countup.js';
 import { useScore, ScoringCondition } from '../composables/useScore';
-import { useDebug } from '../composables/useDebug';
+import { useGameState } from '../composables/useGameState';
 
 const { scoreState } = useScore();
-const { debugState } = useDebug();
+const { gameState } = useGameState();
 
-// Referencias a los elementos del DOM (sustituyen a document.querySelector)
+// Referencias a los elementos del DOM
 const scoreLeftRef = ref<HTMLElement | null>(null);
 const scoreRightRef = ref<HTMLElement | null>(null);
 const differenceRef = ref<HTMLElement | null>(null);
@@ -54,7 +54,7 @@ const initCountUp = () => {
 
 onMounted(() => initCountUp());
 
-// Re-inicializamos si cambia la condición (SCORE, ACC, etc)
+// Re-inicializamos los contadores al cambiar la condicion de puntuación.
 watch(() => scoreState.condition, () => initCountUp());
 
 // Animamos los valores cuando el estado cambia reactivamente
@@ -62,12 +62,12 @@ watch(() => scoreState.left, (val) => countUpLeft?.update(val));
 watch(() => scoreState.right, (val) => countUpRight?.update(val));
 watch(() => scoreState.difference, (val) => countUpDiff?.update(val));
 
-// Computamos el ancho de la barra
+// ancho de las barras de diferencia
 const leftBarWidth = computed(() => scoreState.isLeftLeading ? `calc(${Math.min(1, scoreState.lineDiffFactor)} * 960px)` : '0px');
 const rightBarWidth = computed(() => scoreState.isRightLeading ? `calc(${Math.min(1, scoreState.lineDiffFactor)} * 960px)` : '0px');
 
-// Computamos la visibilidad según el panel de Debug (luego lo conectaremos a GameStateHandler)
-const isVisible = computed(() => debugState.testMode ? debugState.scoreVisible : true);
+// visibilidad según el estado del juego (y debug)
+const isVisible = computed(() => gameState.scoreVisible);
 </script>
 
 <template>

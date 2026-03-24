@@ -5,8 +5,9 @@ import TopBar from './components/TopBar.vue';
 import ScoreBoard from './components/ScoreBoard.vue';
 import ChatPanel from './components/ChatPanel.vue';
 import BeatmapInfo from './components/BeatmapInfo.vue';
+import MappoolPanel from './components/MappoolPanel.vue';
+import ResultPanel from './components/ResultPanel.vue';
 
-// Inicializa la conexión con tosu al montar la app
 const engine = useEngine();
 </script>
 
@@ -17,6 +18,8 @@ const engine = useEngine();
 			<div class="absolute top-0 left-0 w-full h-full" id="resultContainer"></div>
 			<div class="absolute top-0 left-0 w-full h-full p-5 flex flex-col items-center gap-8 bg-base transition-all"
 				style="clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)" id="mappoolContainer"></div>
+			<ResultPanel />
+			<MappoolPanel />
 		</div>
 		<div id="bottomBar" class="absolute bottom-0 left-0 w-full h-[260px] bg-base text-text">
             <ScoreBoard />
@@ -30,5 +33,4 @@ const engine = useEngine();
 </template>
 
 <style>
-/* Si quieres importar estilos globales adicionales puedes hacerlo aquí o dejarlos en main.ts */
 </style>

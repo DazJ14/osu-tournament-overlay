@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useBeatmap } from '../composables/useBeatmap';
+import { useGameState } from '../composables/useGameState';
 
 const { beatmapState } = useBeatmap();
+const { gameState } = useGameState();
 
-// Computada para convertir milisegundos a MM:SS
+// Formateo de duración del beatmap (mm:ss)
 const formattedLength = computed(() => {
   const seconds = Math.round(beatmapState.length / 1000);
   const minutes = Math.floor(seconds / 60);
   return `${minutes.toString().padStart(2, "0")}:${(seconds % 60).toString().padStart(2, "0")}`;
 });
 
-// Computada para el Picker visual
 const pickerInfo = computed(() => {
   const hasRed = beatmapState.redPickedMaps.has(beatmapState.currentMapId);
   const hasBlue = beatmapState.bluePickedMaps.has(beatmapState.currentMapId);
@@ -31,7 +32,10 @@ const pickerInfo = computed(() => {
     
     <div id="metadata"
       class="relative grow h-[50%] bg-mantle flex flex-col justify-center p-5 bg-cover bg-center transition-transform rounded-xl overflow-hidden border border-surface-0"
-      :style="{ backgroundImage: `url('${beatmapState.backgroundUrl}')` }"
+      :style="{ 
+        backgroundImage: `url('${beatmapState.backgroundUrl}')`,
+        transform: gameState.scoreVisible ? 'translateX(-950px) translateY(120px)' : ''
+      }"
     >
       <div class="absolute top-0 left-0 bg-crust/70 w-full h-full"></div>
       
