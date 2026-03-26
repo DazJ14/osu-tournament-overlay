@@ -1,64 +1,82 @@
-# Vietnam Community League - Tournament Overlay
-A complete rework of [vcl-tournament-overlay-tosu](https://github.com/vncommunityleague/vcl-tournament-overlay-tosu), using [Z-Engine](https://www.npmjs.com/package/@fukutotojido/z-engine) as value change listener. Developed by [ANON TOKYO](https://github.com/FukutoTojido).
+# Shinsei Kitsune Academy (SKA) - Tournament Overlay
 
-## Why this thing exist?
-- You hate configuring Lazer but still prefer the design of its tournament overlay
-- You prefer using an open-source and highly customizable (if you know how to) solution
+Una versión refactorizada y modernizada del overlay de torneos de [Vietnam Community League (VCL)](https://github.com/vncommunityleague/vcl-overlay), reconstruida desde cero utilizando **Vue 3**, **Vite** y **Tailwind CSS**. 
 
-## Setup
-- Install [tosu](https://github.com/tosuapp/tosu/releases/latest)
-- Download the latest release from the [Release](https://github.com/vncommunityleague/vcl-overlay/Releases) page of this repository
-- Extract the downloaded zip file to `static` folder of tosu.
-- Your file structure should be like this
+Este proyecto utiliza [Z-Engine](https://www.npmjs.com/package/@fukutotojido/z-engine) para la lectura de datos de osu! en tiempo real y está diseñado para ser altamente modular, fácil de mantener y de personalizar.
+
+---
+
+## Novedades y Características
+
+- **Migración a Vue 3:** El código original (Vanilla JS) fue reescrito en componentes de Vue 3 utilizando la *Composition API* y *Composables* para separar la lógica de la vista (`useMappool`, `useScore`, `useGameState`, etc.).
+- **Estilos con Tailwind CSS:** Facilita enormemente la modificación del diseño y la responsividad de los elementos.
+- **Panel de Debug Integrado:** Interfaz de desarrollo mejorada para simular el estado de la partida, los puntajes y probar el overlay sin necesidad de tener el cliente de osu! abierto.
+- **Resolución Estándar:** Optimizado nativamente para una resolución de 1080p (`1920x1080`).
+
+---
+
+## Uso en Producción (Para Streamers y Organizers)
+
+Si solo quieres usar el overlay en tu torneo y no planeas modificar el código (Esto es en caso que tengas la carpeta compilada, caso contrario, deberas ir a la seccion de [desarrollo](#desarrollo-y-entorno-local) y compilarla por tu cuenta):
+
+1. Instala [tosu](https://github.com/tosuapp/tosu).
+2. Descarga la última versión compilada (o compílala tú mismo leyendo la sección de Desarrollo).
+3. Mueve el contenido de la carpeta compilada (`dist/`) a la carpeta `static/<Tu-carpeta>` dentro de tu instalación de `tosu`.
+   La estructura debería verse así:
+   ```text
+   tosu/
+   └── static/
+       └── <Tu-carpeta>/
+           ├── assets/
+           ├── index.html
+           └── data.json
+4. Actualiza la información de los mapas en el archivo data.json según el mappool de tu torneo.
+
+### Configuración en OBS
+- Añade una nueva fuente de navegador (Browser Source) en OBS.
+- **URL:** La URL es proporcionada dentro del cliente web de `tosu`, pero generalmente tiene un formato como el siguiente `http://127.0.0.1:24050/<Tu-carpeta>`
+- **Ancho (Width):** `1920`
+- **Alto (Height):** `1368`
+- Haz clic derecho en la fuente de navegador y selecciona **Interactuar** (`Interact`) para abrir el panel de control del overlay.
+
+### Controles del Mappool (Interacción en OBS)
+- **Click Izquierdo:** Hacer un PICK para el equipo Izquierdo.
+- **Shift + Click Izquierdo:** Hacer un BAN para el equipo Izquierdo.
+- **Click Derecho:** Hacer un PICK para el equipo Derecho.
+- **Shift + Click Derecho:** Hacer un BAN para el equipo Derecho.
+- **Ctrl + Click (Izquierdo o Derecho):** Eliminar el pick/ban de ese mapa.
+
+---
+
+## Desarrollo y Entorno Local
+
+Ya que el proyecto utiliza Vue y Vite, necesitas compilarlo antes de pasarlo a `tosu`.
+
+### Prerrequisitos
+
+- Bun (Recomendado) o en su defecto Node.js (`npm`/`yarn`).
+
+### Levantar el entorno de desarrollo
+
+1. Clona este repositorio:
 ```
-static/
-└── vcl-overlay/
-    ├── assets/
-    ├── check.svg
-    ├── data.json
-    ├── index.html
-    └── vcl.svg
+git clone https://github.com/DazJ14/ska-overlay.git
+cd ska-overlay
 ```
-- Update data in `data.json` file (example is provided in the file)
-
-## Usage
-- Add a new Browser Source in OBS:
-  - URL: `http://127.0.0.1:24050/vcl-overlay`
-  - Width: `1920`
-  - Height: `1368`
-- Click on `Interact` button below the preview to interact with the overlay
-- **Toggle Mappool** to show the mappool panel
-  - **Left Click** a beatmap to pick the beatmap for **Left** team
-  - **Shift + Left Click** a beatmap to ban the beatmap for **Left** team
-  - **Right Click** a beatmap to pick the beatmap for **Right** team
-  - **Shift + Right Click** a beatmap to ban the beatmap for **Right** team
-  - **Ctrl + Click / Right Click** a beatmap to remove any ban/pick on the beatmap
-
-## Development
-Just as a head-up, since this overlay is completely reworked on Vite, you cannot directly change the HTML, CSS and JS directly just like the old overlay but rather spin up a development server on your local machine and work with it for modification. After you have done everything, you should build the overlay and paste the files in the `dist` folder to tosu folder again.
-
-- Install [Bun](https://bun.sh/docs/installation)
-- Clone the repository and start developing
+2. Instala las dependencias:
 ```
-git clone https://github.com/vncommunityleague/vcl-overlay.git
 bun install
+```
+3. Inicia el servidor de desarrollo:
+```
 bun dev
 ```
-- Your overlay should be available at `http://localhost:5173`
+4. Abre tu navegador en `http://localhost:5173`
 
-## Build
-- Build the overlay
+### Compilar para Producción
+
+Cuando termines de hacer tus cambios, ejecuta:
 ```
 bun run build
 ```
-
-## FAQs
-**Does this support accuracy?**
-- Not only by accuracy but also by max combo or miss count.
-
-**Does this support automatic pick?**
-- Removed in this version, old one still has it. 
-
-**Who should I contact to get support?**
-- For additional support, DM `itsmehoaq` on Discord (or ping in osu! Tournament Hub) - note that any requests regarding modifying overlay design or functionality will be ignored.
-- If you are using this overlay, please make a fork so we know which tournament this is being used for :D
+Esto generará una carpeta `dist` con los archivos estáticos minificados y optimizados. Copia el contenido de esta carpeta a tu instancia de `tosu` como se explica en la sección de Instalación.
